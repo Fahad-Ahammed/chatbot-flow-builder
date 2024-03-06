@@ -1,12 +1,11 @@
-import Panel from "@/app/components/panel"
+import SettingsPanel from "./panels/settings"
+import NodesPanel from "./panels/nodes"
 
 const Index = () => {
   return (
     <div className='flex' >
-        <div className='w-[75%] h-screen flex justify-center items-center ' >
-            Text nodes
-        </div>
-        <Panel/>
+       <NodesPanel/>
+        <SettingsPanel/>
     </div>
   )
 }
