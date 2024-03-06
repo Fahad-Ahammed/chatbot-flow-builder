@@ -1,7 +1,11 @@
-export default function Home() {
+import Home from "@/app/templates/home"
+import Nav from "./components/Nav";
+
+export default function Index() {
   return (
     <main className="">
-      hello world
+      <Nav/>
+      <Home/>
     </main>
   );
 }
