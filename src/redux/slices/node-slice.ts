@@ -11,12 +11,12 @@ const NodeSlice = createSlice({
   name: "node",
   initialState,
   reducers: {
-    add: (state, action) => {
+    addNode: (state, action) => {
       state.push(action.payload);
     },
   },
 });
 
-export const { add } = NodeSlice.actions;
+export const { addNode } = NodeSlice.actions;
 
 export default NodeSlice.reducer;
