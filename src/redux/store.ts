@@ -1,12 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import nodeSlice from "./slices/node-slice";
+import flowSlice from "./slices/flow-slice";
 
 export const store = configureStore({
   reducer: {
-    node:nodeSlice
+    flow: flowSlice,
   },
 });
-
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
