@@ -12,7 +12,7 @@ const CustomNode = ({ data }: any) => {
         position={Position.Left}
         className="w-16 !bg-teal-500"
       />
-      <div className="rounded-md shadow-lg min-w-[300px] overflow-hidden ">
+      <div className="rounded-md shadow-lg min-w-[300px] max-w-[400px] overflow-hidden ">
         <div className="px-[15px] py-[5px] bg-[#B3F0E3] border-b gap-x-[5px] items-center border-gray-300  flex ">
           <MdOutlineMessage size={12} color="#5555c9" />
           <p className="text-md font-bold text-black">Send Message</p>
@@ -21,7 +21,7 @@ const CustomNode = ({ data }: any) => {
           </div>
         </div>
         {/* {data.children}  */}
-        <div className="px-[15px] py-[10px]">{data.message}</div>
+        <div className="max-w-full px-[15px] py-[10px]">{data.message}</div>
       </div>
       <Handle
         id="input"

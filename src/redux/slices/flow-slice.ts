@@ -15,6 +15,8 @@ type FlowState = {
   edges: Edge[];
   id: number;
   initialPositionX: number;
+  showNodesPanel: boolean;
+  selectedNode: Node | null;
 };
 
 const initialState: FlowState = {
@@ -22,6 +24,8 @@ const initialState: FlowState = {
   edges: [],
   id: 1,
   initialPositionX: 0,
+  showNodesPanel: false,
+  selectedNode: null,
 };
 
 const flowSlice = createSlice({
@@ -36,6 +40,16 @@ const flowSlice = createSlice({
     // setEdges: (state, action: PayloadAction<Edge[]>) => {
     //   state.edges.push(action.payload[0]);
     // },
+    updateNode: (state, action: any) => {
+      const id = state.selectedNode?.id;
+      const nodeToUpdate: Node = state.nodes.filter((node: Node) => {
+        return id == node.id;
+      })[0];
+      if (nodeToUpdate) {
+        nodeToUpdate.data = { ...nodeToUpdate.data, message: action.payload };
+        state.nodes.push(nodeToUpdate);
+      }
+    },
     onNodesChange: (state, action: PayloadAction<NodeChange[]>) => {
       state.nodes = applyNodeChanges(action.payload, state.nodes);
     },
@@ -45,9 +59,26 @@ const flowSlice = createSlice({
     onConnect: (state, action: PayloadAction<Connection>) => {
       state.edges = addEdge(action.payload, state.edges);
     },
+    toggleNodesPanel: (
+      state,
+      action: PayloadAction<{ node: Node | null; toggleValue: boolean }>
+    ) => {
+      state.showNodesPanel = action.payload?.toggleValue;
+      if (action.payload) {
+        state.selectedNode = state.nodes.filter(
+          (node: Node) => node.id == action.payload?.node?.id
+        )?.[0];
+      } else state.selectedNode = null;
+    },
   },
 });
 
 export default flowSlice.reducer;
-export const { setNodes, onNodesChange, onEdgesChange, onConnect } =
-  flowSlice.actions;
+export const {
+  setNodes,
+  onNodesChange,
+  toggleNodesPanel,
+  onEdgesChange,
+  onConnect,
+  updateNode,
+} = flowSlice.actions;

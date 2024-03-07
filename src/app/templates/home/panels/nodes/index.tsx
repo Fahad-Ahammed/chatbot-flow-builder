@@ -6,8 +6,9 @@ import {
   onNodesChange,
   onEdgesChange,
   onConnect,
+  toggleNodesPanel,
 } from "@/redux/slices/flow-slice";
-import CustomNode from "@/app/components/node";
+import CustomNode from "@/app/components/CustomNode";
 import ReactFlow, { MiniMap, Controls, Background } from "reactflow";
 import "reactflow/dist/style.css";
 
@@ -41,13 +42,19 @@ const Index = () => {
   const handleConnect = (connection: any) => {
     let isValidConnection: any = -1;
     if (edges.length > 0) {
-      isValidConnection = edges.findIndex((eds: any) => connection.source == eds.source);
+      isValidConnection = edges.findIndex(
+        (eds: any) => connection.source == eds.source
+      );
     }
-    if (isValidConnection==-1) dispatch(onConnect(connection));
+    if (isValidConnection == -1) dispatch(onConnect(connection));
   };
 
   const handleEdgeChanges = (changes: any) => {
     dispatch(onEdgesChange(changes));
+  };
+
+  const onNodeClick = (event: any, node: any) => {
+    dispatch(toggleNodesPanel({ node, toggleValue: true }));
   };
 
   return (
@@ -63,6 +70,7 @@ const Index = () => {
         onEdgesChange={handleEdgeChanges}
         onConnect={handleConnect}
         nodeTypes={nodeTypes}
+        onNodeClick={onNodeClick}
       >
         <Controls />
         <MiniMap />
