@@ -13,11 +13,15 @@ import {
 type FlowState = {
   nodes: Node[];
   edges: Edge[];
+  id: number;
+  initialPositionX: number;
 };
 
 const initialState: FlowState = {
   nodes: [],
   edges: [],
+  id: 1,
+  initialPositionX: 0,
 };
 
 const flowSlice = createSlice({
@@ -25,10 +29,12 @@ const flowSlice = createSlice({
   initialState,
   reducers: {
     setNodes: (state, action: PayloadAction<Node[]>) => {
-      state.nodes = [...state.nodes, ...action.payload];
+      state.nodes.push(action.payload[0]);
+      state.id += 1;
+      state.initialPositionX += 350;
     },
     setEdges: (state, action: PayloadAction<Edge[]>) => {
-      state.edges = action.payload;
+      state.edges.push(action.payload[0]);
     },
     onNodesChange: (state, action: PayloadAction<NodeChange[]>) => {
       state.nodes = applyNodeChanges(action.payload, state.nodes);

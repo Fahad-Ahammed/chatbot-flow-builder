@@ -11,18 +11,16 @@ import {
 import CustomNode from "@/app/components/node";
 import ReactFlow, { MiniMap, Controls, Background } from "reactflow";
 import "reactflow/dist/style.css";
-import { useState } from "react";
 
 const nodeTypes = {
   custom: CustomNode,
 };
 
-export default function Index() {
+const Index = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const nodes = useSelector((state: RootState) => state.flow.nodes);
-  const edges = useSelector((state: RootState) => state.flow.edges);
-  const [id, setId] = useState(1);
-  const [initialPosition, setInitialPosition] = useState(0);
+  const { nodes, edges, id, initialPositionX } = useSelector(
+    (state: RootState) => state.flow
+  );
 
   const handleOnDrop = () => {
     dispatch(
@@ -31,12 +29,10 @@ export default function Index() {
           id: id.toString(),
           data: { message: "test message " + id.toString() },
           type: "custom",
-          position: { x: initialPosition, y: 0 },
+          position: { x: initialPositionX, y: 0 },
         },
       ])
     );
-    setId(id + 1);
-    setInitialPosition(initialPosition + 350);
   };
 
   const handleNodesChange = (changes: any) => {
@@ -44,7 +40,18 @@ export default function Index() {
   };
 
   const handleConnect = (connection: any) => {
-    dispatch(onConnect(connection));
+    // console.log(edges);
+    let test: any = [];
+    if (edges.length > 0) {
+      test = edges.filter((eds: any) => {
+        return connection.source == eds.source;
+      });
+    }
+    if (test.length == 0) dispatch(onConnect(connection));
+  };
+
+  const handleEdgeChanges = (changes: any) => {
+    dispatch(onEdgesChange(changes));
   };
 
   return (
@@ -57,7 +64,7 @@ export default function Index() {
         nodes={nodes}
         edges={edges}
         onNodesChange={handleNodesChange}
-        // onEdgesChange={onEdgesChange}
+        onEdgesChange={handleEdgeChanges}
         onConnect={handleConnect}
         nodeTypes={nodeTypes}
       >
@@ -67,4 +74,6 @@ export default function Index() {
       </ReactFlow>
     </div>
   );
-}
+};
+
+export default Index;
