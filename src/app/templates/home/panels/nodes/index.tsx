@@ -3,7 +3,6 @@ import { RootState, AppDispatch } from "@/redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setNodes,
-  setEdges,
   onNodesChange,
   onEdgesChange,
   onConnect,
@@ -40,14 +39,11 @@ const Index = () => {
   };
 
   const handleConnect = (connection: any) => {
-    // console.log(edges);
-    let test: any = [];
+    let isValidConnection: any = -1;
     if (edges.length > 0) {
-      test = edges.filter((eds: any) => {
-        return connection.source == eds.source;
-      });
+      isValidConnection = edges.findIndex((eds: any) => connection.source == eds.source);
     }
-    if (test.length == 0) dispatch(onConnect(connection));
+    if (isValidConnection==-1) dispatch(onConnect(connection));
   };
 
   const handleEdgeChanges = (changes: any) => {

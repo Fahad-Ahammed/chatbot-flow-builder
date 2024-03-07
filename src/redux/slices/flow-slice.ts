@@ -33,9 +33,9 @@ const flowSlice = createSlice({
       state.id += 1;
       state.initialPositionX += 350;
     },
-    setEdges: (state, action: PayloadAction<Edge[]>) => {
-      state.edges.push(action.payload[0]);
-    },
+    // setEdges: (state, action: PayloadAction<Edge[]>) => {
+    //   state.edges.push(action.payload[0]);
+    // },
     onNodesChange: (state, action: PayloadAction<NodeChange[]>) => {
       state.nodes = applyNodeChanges(action.payload, state.nodes);
     },
@@ -49,5 +49,5 @@ const flowSlice = createSlice({
 });
 
 export default flowSlice.reducer;
-export const { setNodes, setEdges, onNodesChange, onEdgesChange, onConnect } =
+export const { setNodes, onNodesChange, onEdgesChange, onConnect } =
   flowSlice.actions;
