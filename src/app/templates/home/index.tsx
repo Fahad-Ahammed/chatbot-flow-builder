@@ -3,7 +3,7 @@ import FlowCanvas from "./flow-canvas";
 
 const Home = () => {
   return (
-    <div className="flex">
+    <div className="flex flex-1">
       <FlowCanvas />
       <SideBar />
     </div>

@@ -46,7 +46,7 @@ const Index = () => {
     <div
       onDragOver={(e: any) => e.preventDefault()}
       onDrop={()=>dispatch(setNodes())}
-      className="w-[75%] h-screen"
+      className="w-[75%]"
     >
       <ReactFlow
         nodes={nodes}

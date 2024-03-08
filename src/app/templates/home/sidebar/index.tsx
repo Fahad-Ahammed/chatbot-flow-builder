@@ -23,7 +23,7 @@ const Index = () => {
   };
 
   return (
-    <div className="w-[25%] relative overflow-hidden border-l-[2px] border-t border-gray-300 h-screen">
+    <div className="w-[25%] relative overflow-hidden border-l-[2px] border-t border-gray-300">
 
       {/*Nodes panel start */}
       <div
