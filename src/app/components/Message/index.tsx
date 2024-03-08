@@ -5,24 +5,11 @@ import { setNodes } from "@/redux/slices/flow-slice";
 
 const Message = (props: any) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { id, initialPositionX, showSaveModal } = useSelector(
-    (state: RootState) => state.flow
-  );
-  const handleClick = () => {
-    dispatch(
-      setNodes([
-        {
-          id: id.toString(),
-          data: { message: "test message " + id.toString() },
-          type: "custom",
-          position: { x: initialPositionX, y: 0 },
-        },
-      ])
-    );
-  };
+  const { showSaveModal } = useSelector((state: RootState) => state.flow);
+ 
   return (
     <div
-      onClick={handleClick}
+      onClick={()=>  dispatch(setNodes())}
       draggable={true}
       className={`${
         showSaveModal ? "pointer-events-none" : ""

@@ -18,22 +18,7 @@ const nodeTypes = {
 
 const Index = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { nodes, edges, id, initialPositionX } = useSelector(
-    (state: RootState) => state.flow
-  );
-
-  const handleOnDrop = () => {
-    dispatch(
-      setNodes([
-        {
-          id: id.toString(),
-          data: { message: "test message " + id.toString() },
-          type: "custom",
-          position: { x: initialPositionX, y: 0 },
-        },
-      ])
-    );
-  };
+  const { nodes, edges } = useSelector((state: RootState) => state.flow);
 
   const handleNodesChange = (changes: any) => {
     dispatch(onNodesChange(changes));
@@ -60,7 +45,7 @@ const Index = () => {
   return (
     <div
       onDragOver={(e: any) => e.preventDefault()}
-      onDrop={handleOnDrop}
+      onDrop={()=>dispatch(setNodes())}
       className="w-[75%] h-screen"
     >
       <ReactFlow

@@ -13,8 +13,6 @@ import {
 type FlowState = {
   nodes: Node[];
   edges: Edge[];
-  id: number;
-  initialPositionX: number;
   showNodesPanel: boolean;
   selectedNode: Node | null;
   showSaveModal: boolean;
@@ -24,22 +22,35 @@ type FlowState = {
 const initialState: FlowState = {
   nodes: [],
   edges: [],
-  id: 1,
-  initialPositionX: 0,
   showNodesPanel: false,
   selectedNode: null,
   showSaveModal: false,
   validFlow: false,
 };
 
+const addNode = (previousNode?: Node): Node => {
+  const id = previousNode ? `${Number(previousNode.id) + 1}` : "1";
+  const message = previousNode
+    ? `text message ${Number(previousNode.id) + 1}`
+    : "text message 1";
+  const position = previousNode
+    ? { x: previousNode.position.x + 350, y: 0 }
+    : { x: 0, y: 0 };
+
+  return {
+    id,
+    data: { message },
+    type: "custom",
+    position,
+  };
+};
+
 const flowSlice = createSlice({
   name: "flow",
   initialState,
   reducers: {
-    setNodes: (state, action: PayloadAction<Node[]>) => {
-      state.nodes.push(action.payload[0]);
-      state.id += 1;
-      state.initialPositionX += 350;
+    setNodes: (state) => {
+      state.nodes.push(addNode(state.nodes[state.nodes.length - 1]));
     },
     // setEdges: (state, action: PayloadAction<Edge[]>) => {
     //   state.edges.push(action.payload[0]);
