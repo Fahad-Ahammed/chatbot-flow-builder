@@ -1,5 +1,5 @@
 import Home from "@/app/templates/home"
-import Nav from "./components/nav";
+import Nav from "./components/Nav";
 
 export default function Index() {
   return (

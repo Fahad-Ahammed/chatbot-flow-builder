@@ -1,5 +1,5 @@
 "use client";
-import Message from "@/app/components/messages";
+import Message from "@/app/components/Message";
 import { MdOutlineMessage } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa";
 import { RootState, AppDispatch } from "@/redux/store";

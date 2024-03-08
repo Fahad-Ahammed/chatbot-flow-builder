@@ -10,7 +10,7 @@ const CustomNode = ({ data }: any) => {
         id="output"
         type="target"
         position={Position.Left}
-        className="w-16 !bg-teal-500"
+        className=" !bg-gray-600 !w-[12px] !h-[12px] !left-[-7px]"
       />
       <div className="rounded-md shadow-lg min-w-[300px] max-w-[400px] overflow-hidden ">
         <div className="px-[15px] py-[5px] bg-[#B3F0E3] border-b gap-x-[5px] items-center border-gray-300  flex ">
@@ -21,13 +21,14 @@ const CustomNode = ({ data }: any) => {
           </div>
         </div>
         {/* {data.children}  */}
-        <div className="max-w-full px-[15px] py-[10px]">{data.message}</div>
+        <div className="max-w-full p-[15px]">{data.message}</div>
       </div>
       <Handle
         id="input"
         type="source"
         position={Position.Right}
-        className="w-16 !bg-teal-500"
+        className=" !bg-gray-600 !w-[12px] !h-[12px] !right-[-7px]"
+
       />
     </>
   );

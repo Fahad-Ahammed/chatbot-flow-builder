@@ -17,6 +17,7 @@ type FlowState = {
   initialPositionX: number;
   showNodesPanel: boolean;
   selectedNode: Node | null;
+  showSaveModal: boolean;
 };
 
 const initialState: FlowState = {
@@ -26,6 +27,7 @@ const initialState: FlowState = {
   initialPositionX: 0,
   showNodesPanel: false,
   selectedNode: null,
+  showSaveModal: false,
 };
 
 const flowSlice = createSlice({
@@ -70,6 +72,9 @@ const flowSlice = createSlice({
         )?.[0];
       } else state.selectedNode = null;
     },
+    handleModal: (state) => {
+      state.showSaveModal = !state.showSaveModal;
+    },
   },
 });
 
@@ -81,4 +86,5 @@ export const {
   onEdgesChange,
   onConnect,
   updateNode,
+  handleModal,
 } = flowSlice.actions;
