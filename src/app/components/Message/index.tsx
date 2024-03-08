@@ -17,7 +17,7 @@ const Message = (props: any) => {
     >
       {props.icon}{" "}
       {/* we can add custom icons for different types of messages */}
-      <p className="text-sm text-[#5555c9]/90 font-semibold">
+      <p className="text-xs lg:text-sm text-[#5555c9]/90 font-semibold">
         {props.title} {/* custom message title */}
       </p>
     </div>

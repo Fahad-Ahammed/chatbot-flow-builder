@@ -36,7 +36,7 @@ const Index = () => {
         <Message
           type="text"
           title="Message"
-          icon={<MdOutlineMessage size={30} color="#5555c9" />}
+          icon={<MdOutlineMessage className="w-[15px] h-[15px]  lg:w-[30px] lg:h-[30px]" color="#5555c9" />}
         />
       </div>
       {/*Nodes panel end */}
