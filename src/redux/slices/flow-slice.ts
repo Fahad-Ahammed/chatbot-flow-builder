@@ -88,17 +88,18 @@ const flowSlice = createSlice({
       state.showSaveModal = !state.showSaveModal;
     },
     handleValidFlow: (state) => {
-      if (state.nodes.length == 0 && state.edges.length == 0) {
-        state.validFlow = true; // checking empty flow
-        return;
-      }
-      const initialCondition = state.edges.findIndex((edge: Edge) => {
-        return edge.target == "1";
-      }); // checking node 1 target handle is connected
-      state.validFlow =
-        initialCondition == -1
-          ? state.edges.length == state.nodes.length - 1
-          : state.edges.length == state.nodes.length;
+      const nodesWithEmptyTarget = state.nodes.filter((node) => {
+        if (state.edges.length > 0) {
+          const incomingEdges = state.edges.filter(
+            (edge) => edge.target === node.id
+          );
+          return incomingEdges.length === 0;
+        }
+        return true;
+      });
+      state.validFlow = !(
+        state.nodes.length > 1 && nodesWithEmptyTarget.length > 1
+      );
     },
   },
 });
