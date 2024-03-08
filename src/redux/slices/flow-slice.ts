@@ -51,7 +51,6 @@ const flowSlice = createSlice({
       })[0];
       if (nodeToUpdate) {
         nodeToUpdate.data = { ...nodeToUpdate.data, message: action.payload };
-        state.nodes.push(nodeToUpdate);
       }
     },
     onNodesChange: (state, action: PayloadAction<NodeChange[]>) => {
@@ -78,6 +77,10 @@ const flowSlice = createSlice({
       state.showSaveModal = !state.showSaveModal;
     },
     handleValidFlow: (state) => {
+      if (state.nodes.length == 0 && state.edges.length == 0) {
+        state.validFlow = true; // checking empty flow
+        return;
+      }
       const initialCondition = state.edges.findIndex((edge: Edge) => {
         return edge.target == "1";
       }); // checking node 1 target handle is connected
