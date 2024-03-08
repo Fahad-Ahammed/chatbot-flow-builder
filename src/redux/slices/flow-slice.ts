@@ -13,7 +13,7 @@ import {
 type FlowState = {
   nodes: Node[];
   edges: Edge[];
-  showNodesPanel: boolean;
+  showSettingsPanel: boolean;
   selectedNode: Node | null;
   showSaveModal: boolean;
   validFlow: boolean;
@@ -22,7 +22,7 @@ type FlowState = {
 const initialState: FlowState = {
   nodes: [],
   edges: [],
-  showNodesPanel: false,
+  showSettingsPanel: false,
   selectedNode: null,
   showSaveModal: false,
   validFlow: false,
@@ -77,7 +77,7 @@ const flowSlice = createSlice({
       state,
       action: PayloadAction<{ node: Node | null; toggleValue: boolean }>
     ) => {
-      state.showNodesPanel = action.payload?.toggleValue;
+      state.showSettingsPanel = action.payload?.toggleValue;
       if (action.payload) {
         state.selectedNode = state.nodes.filter(
           (node: Node) => node.id == action.payload?.node?.id

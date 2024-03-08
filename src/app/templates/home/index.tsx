@@ -1,13 +1,13 @@
-import SettingsPanel from "./panels/settings"
-import NodesPanel from "./panels/nodes"
+import SideBar from "./sidebar";
+import FlowCanvas from "./flow-canvas";
 
-const Index = () => {
+const Home = () => {
   return (
-    <div className='flex' >
-       <NodesPanel/>
-        <SettingsPanel/>
+    <div className="flex">
+      <FlowCanvas />
+      <SideBar />
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Home;

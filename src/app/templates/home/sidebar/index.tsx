@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 
 const Index = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { selectedNode, showNodesPanel } = useSelector(
+  const { selectedNode, showSettingsPanel } = useSelector(
     (state: RootState) => state.flow
   );
   const [updatedMessage, setUpdatedMessage] = useState<any>("");
@@ -24,9 +24,11 @@ const Index = () => {
 
   return (
     <div className="w-[25%] relative overflow-hidden border-l-[2px] border-t border-gray-300 h-screen">
+
+      {/*Nodes panel start */}
       <div
         className={`absolute left-0 top-0 ${
-          showNodesPanel
+          showSettingsPanel
             ? "translate-x-[100%] opacity-0 invisible "
             : "opacity-100 visible translate-x-0"
         } duration-300 ease-in-out w-full p-[15px] grid grid-cols-1 lg:grid-cols-2 gap-[5px] `}
@@ -37,9 +39,12 @@ const Index = () => {
           icon={<MdOutlineMessage size={30} color="#5555c9" />}
         />
       </div>
+      {/*Nodes panel end */}
+
+      {/*Settings panel start */}
       <div
         className={`${
-          showNodesPanel
+          showSettingsPanel
             ? "translate-x-0 opacity-100 visible "
             : "translate-x-[100%] opacity-0 invisible "
         } duration-300 ease-in-out absolute w-full  left-0 top-0 border-b-[2px] border-gray-300`}
@@ -69,6 +74,7 @@ const Index = () => {
           ></textarea>
         </div>
       </div>
+      {/*Settings panel end */}
     </div>
   );
 };
