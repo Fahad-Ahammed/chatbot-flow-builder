@@ -18,6 +18,7 @@ type FlowState = {
   showNodesPanel: boolean;
   selectedNode: Node | null;
   showSaveModal: boolean;
+  validFlow: boolean;
 };
 
 const initialState: FlowState = {
@@ -28,6 +29,7 @@ const initialState: FlowState = {
   showNodesPanel: false,
   selectedNode: null,
   showSaveModal: false,
+  validFlow: false,
 };
 
 const flowSlice = createSlice({
@@ -75,6 +77,15 @@ const flowSlice = createSlice({
     handleModal: (state) => {
       state.showSaveModal = !state.showSaveModal;
     },
+    handleValidFlow: (state) => {
+      const initialCondition = state.edges.findIndex((edge: Edge) => {
+        return edge.target == "1";
+      }); // checking node 1 target handle is connected
+      state.validFlow =
+        initialCondition == -1
+          ? state.edges.length == state.nodes.length - 1
+          : state.edges.length == state.nodes.length;
+    },
   },
 });
 
@@ -87,4 +98,5 @@ export const {
   onConnect,
   updateNode,
   handleModal,
+  handleValidFlow,
 } = flowSlice.actions;

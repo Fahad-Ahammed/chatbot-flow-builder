@@ -1,36 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Edge } from "reactflow";
 import { RootState, AppDispatch } from "@/redux/store";
 import { useSelector, useDispatch } from "react-redux";
-import { handleModal } from "@/redux/slices/flow-slice";
+import { handleModal, handleValidFlow } from "@/redux/slices/flow-slice";
 
 const Nav = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { showSaveModal } = useSelector((state: RootState) => state.flow);
-  const { nodes, edges, id } = useSelector((state: RootState) => state.flow);
-  const [validFlow, setValidFlow] = useState(false);
-  // const [showSaveModal, setShowSaveModal] = useState(false);
-  useEffect(() => {
-    const initialCondition = edges.findIndex((edge: Edge) => {
-      return edge.target == "1";
-    }); // checking node 1 target handle is connected
-    setValidFlow(
-      initialCondition == -1
-        ? edges.length == nodes.length - 1
-        : edges.length == nodes.length
-    );
-  }, [nodes, edges]);
-
+  const { showSaveModal, validFlow } = useSelector(
+    (state: RootState) => state.flow
+  );
   const handleClick = () => {
     dispatch(handleModal());
-    setTimeout(() => {
-      dispatch(handleModal());
-    }, 2000);
-
+    dispatch(handleValidFlow());
     // if (validFlow) {
     // console.log("Flow saved"); // we can save the flow in backend here
     // } else console.log("cannot save flow");
+    setTimeout(() => {
+      dispatch(handleModal());
+    }, 2000);
   };
   return (
     <>
