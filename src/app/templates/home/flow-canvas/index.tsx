@@ -42,10 +42,14 @@ const Index = () => {
     dispatch(togglePanel({ node, toggleValue: true }));
   };
 
+  const handlePaneClick = (event: any) => {
+    dispatch(togglePanel({ node: null, toggleValue: false }));
+  };
+
   return (
     <div
       onDragOver={(e: any) => e.preventDefault()}
-      onDrop={()=>dispatch(setNodes())}
+      onDrop={() => dispatch(setNodes())}
       className="w-[75%]"
     >
       <ReactFlow
@@ -56,6 +60,7 @@ const Index = () => {
         onConnect={handleConnect}
         nodeTypes={nodeTypes}
         onNodeClick={onNodeClick}
+        onPaneClick={handlePaneClick}
       >
         <Controls />
         <MiniMap />
