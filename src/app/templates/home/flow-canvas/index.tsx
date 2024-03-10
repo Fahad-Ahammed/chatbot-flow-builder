@@ -6,7 +6,7 @@ import {
   onNodesChange,
   onEdgesChange,
   onConnect,
-  toggleNodesPanel,
+  togglePanel,
 } from "@/redux/slices/flow-slice";
 import CustomNode from "@/app/components/CustomNode";
 import ReactFlow, { MiniMap, Controls, Background } from "reactflow";
@@ -39,7 +39,7 @@ const Index = () => {
   };
 
   const onNodeClick = (event: any, node: any) => {
-    dispatch(toggleNodesPanel({ node, toggleValue: true }));
+    dispatch(togglePanel({ node, toggleValue: true }));
   };
 
   return (

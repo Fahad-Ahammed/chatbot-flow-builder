@@ -73,7 +73,7 @@ const flowSlice = createSlice({
     onConnect: (state, action: PayloadAction<Connection>) => {
       state.edges = addEdge(action.payload, state.edges);
     },
-    toggleNodesPanel: (
+    togglePanel: (
       state,
       action: PayloadAction<{ node: Node | null; toggleValue: boolean }>
     ) => {
@@ -108,7 +108,7 @@ export default flowSlice.reducer;
 export const {
   setNodes,
   onNodesChange,
-  toggleNodesPanel,
+  togglePanel,
   onEdgesChange,
   onConnect,
   updateNode,

@@ -4,18 +4,27 @@ import { MdOutlineMessage } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa";
 import { RootState, AppDispatch } from "@/redux/store";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleNodesPanel, updateNode } from "@/redux/slices/flow-slice";
-import React, { useEffect, useState } from "react";
+import { togglePanel, updateNode } from "@/redux/slices/flow-slice";
+import React, { useEffect, useState, useRef } from "react";
 
 const Index = () => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useDispatch<AppDispatch>();
   const { selectedNode, showSettingsPanel } = useSelector(
     (state: RootState) => state.flow
   );
   const [updatedMessage, setUpdatedMessage] = useState<any>("");
   useEffect(() => {
-    setUpdatedMessage(selectedNode?.data.message);
-  }, [selectedNode]);
+    setUpdatedMessage(selectedNode?.data?.message);
+    if (showSettingsPanel && textareaRef.current) {
+      // Use setTimeout to focus after the animation
+      const timeoutId = setTimeout(() => {
+        textareaRef?.current?.select();
+      }, 100);
+      // Clear the timeout
+      return () => clearTimeout(timeoutId);
+    }
+  }, [selectedNode, showSettingsPanel]);
 
   const handleChange = (e: any) => {
     setUpdatedMessage(e.target.value);
@@ -24,7 +33,6 @@ const Index = () => {
 
   return (
     <div className="w-[25%] relative overflow-hidden border-l-[2px] border-t border-gray-300">
-
       {/*Nodes panel start */}
       <div
         className={`absolute left-0 top-0 ${
@@ -36,7 +44,12 @@ const Index = () => {
         <Message
           type="text"
           title="Message"
-          icon={<MdOutlineMessage className="w-[15px] h-[15px]  lg:w-[30px] lg:h-[30px]" color="#5555c9" />}
+          icon={
+            <MdOutlineMessage
+              className="w-[15px] h-[15px]  lg:w-[30px] lg:h-[30px]"
+              color="#5555c9"
+            />
+          }
         />
       </div>
       {/*Nodes panel end */}
@@ -52,7 +65,7 @@ const Index = () => {
         <div className="border-b-[2px] relative border-gray-300 py-[10px] px-[15px] ">
           <FaArrowLeft
             onClick={() =>
-              dispatch(toggleNodesPanel({ node: null, toggleValue: false }))
+              dispatch(togglePanel({ node: null, toggleValue: false }))
             }
             className="lg:absolute cursor-pointer lg:left-[15px] lg:top-[50%] lg:translate-y-[-50%] max-lg:mb-[15px]"
             color="gray"
@@ -66,6 +79,7 @@ const Index = () => {
             <span className="text-sm text-black/40 font-semibold">Text</span>
           </div>
           <textarea
+            ref={textareaRef}
             value={updatedMessage}
             onChange={handleChange}
             className="border-[2px] w-full text-sm h-[75px] focus:outline-none p-[10px] border-gray-300 mt-[10px] rounded-md"
